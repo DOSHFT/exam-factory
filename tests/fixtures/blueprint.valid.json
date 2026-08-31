@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "exam": {
+    "id": "m16-smoke",
+    "title": "M16 Trainingsklausur",
+    "version": "1.0.0",
+    "language": "de",
+    "institution": "Berlin University Program",
+    "program": "Hebammenwissenschaft",
+    "module": "M16",
+    "learnerLevel": "4. Fachsemester"
+  },
+  "sourcePaths": ["sources"],
+  "topics": [
+    {"id": "statistik", "name": "Statistik", "singleChoice": 2, "open": 1},
+    {"id": "evidenz", "name": "Evidenzbasierte Praxis", "singleChoice": 2, "open": 1}
+  ],
+  "difficultyCounts": {"easy": 2, "medium": 3, "hard": 1},
+  "scoring": {"singleChoicePoints": 1, "openPoints": 4, "passPercent": 60},
+  "ui": {"answerCommit": "double-click", "brandName": "Exam HTML Factory"},
+  "output": {"directory": "generated", "fileName": "exam.html", "overwrite": false}
+}
