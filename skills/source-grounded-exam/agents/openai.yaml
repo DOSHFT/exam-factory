@@ -1,0 +1,4 @@
+interface:
+  display_name: "Source-Grounded Exam"
+  short_description: "Build validated exams from supplied study material"
+  default_prompt: "Use $source-grounded-exam to create a validated interactive exam from my supplied study materials."

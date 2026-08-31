@@ -1,0 +1,22 @@
+{
+  "name": "exam-html-factory",
+  "version": "0.1.0",
+  "description": "Generate source-grounded interactive exam HTML files with consensus-gated open questions.",
+  "author": {
+    "name": "DOSHFT"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Exam HTML Factory",
+    "shortDescription": "Build validated exams from supplied study materials.",
+    "longDescription": "Create source-grounded interactive exam HTML files, private provenance manifests, and validation reports from explicitly supplied study materials.",
+    "developerName": "DOSHFT",
+    "category": "Education",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "Create a source-grounded interactive exam from my study materials.",
+      "Validate this exam bank and render a standalone HTML test."
+    ],
+    "brandColor": "#176B64"
+  }
+}
