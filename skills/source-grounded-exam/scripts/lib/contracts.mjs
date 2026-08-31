@@ -27,7 +27,7 @@ export function validateBlueprint(value) {
   if (!Array.isArray(value?.topics) || !value.topics.length) errors.push('topics must be a non-empty array');
   const ids = new Set();
   let questionTotal = 0;
-  for (const topic of value?.topics ?? []) {
+  for (const topic of Array.isArray(value?.topics) ? value.topics : []) {
     if (!/^[a-z0-9-]+$/.test(topic.id ?? '')) errors.push(`invalid topic id: ${topic.id}`);
     if (ids.has(topic.id)) errors.push(`duplicate topic id: ${topic.id}`);
     ids.add(topic.id);
@@ -37,7 +37,11 @@ export function validateBlueprint(value) {
     }
   }
   const difficulties = value?.difficultyCounts ?? {};
-  const difficultyTotal = ['easy', 'medium', 'hard'].reduce((sum, key) => sum + (Number.isInteger(difficulties[key]) ? difficulties[key] : 0), 0);
+  let difficultyTotal = 0;
+  for (const key of ['easy', 'medium', 'hard']) {
+    if (!Number.isInteger(difficulties[key]) || difficulties[key] < 0) errors.push(`difficultyCounts ${key} must be a non-negative integer`);
+    else difficultyTotal += difficulties[key];
+  }
   if (difficultyTotal !== questionTotal) errors.push(`difficultyCounts total ${difficultyTotal} must equal question total ${questionTotal}`);
   if (value?.scoring?.singleChoicePoints !== 1 || value?.scoring?.openPoints !== 4) errors.push('scoring must use 1 point for single choice and 4 points for open questions');
   if (!Number.isFinite(value?.scoring?.passPercent) || value.scoring.passPercent < 0 || value.scoring.passPercent > 100) errors.push('scoring.passPercent must be between 0 and 100');
