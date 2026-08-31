@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "1.0.0",
+  "examId": "m16-smoke",
+  "blueprintHash": "f5cb337d83f5a83a328c940402a8f1381e9c2d29032eab0c10234eea866a6ee3",
+  "sourceManifestHash": "d5332307b89e6ac84417c6be7f0f980a3fe2150986c2a1f0012c63aea143e6af",
+  "questions": [
+    {
+      "id": "statistik-sc-001",
+      "type": "single-choice",
+      "topicId": "statistik",
+      "difficulty": "easy",
+      "learningObjective": "Robuste Lagemaße unterscheiden",
+      "stem": "Welches Lagemaß ist gegenüber Ausreißern robuster?",
+      "options": [
+        {"id": "opt-1", "text": "Median"},
+        {"id": "opt-2", "text": "Arithmetischer Mittelwert"},
+        {"id": "opt-3", "text": "Varianz"},
+        {"id": "opt-4", "text": "Standardabweichung"}
+      ],
+      "correctOptionId": "opt-1",
+      "rationale": "Der Median wird durch einzelne extreme Werte weniger beeinflusst.",
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 3, "lineEnd": 3, "quote": "Der Median ist gegenüber Ausreißern robuster als der Mittelwert."}
+      ]
+    },
+    {
+      "id": "statistik-open-001",
+      "type": "open",
+      "topicId": "statistik",
+      "difficulty": "medium",
+      "learningObjective": "Robustheit von Lagemaßen erklären",
+      "prompt": "Erklären Sie, warum der Median bei Ausreißern bevorzugt wird.",
+      "modelAnswer": "Der Median ist gegenüber Ausreißern robuster als der Mittelwert. Der Mittelwert kann durch einzelne Extremwerte deutlich verschoben werden; bei Daten mit Ausreißern ist der Median daher häufig passender.",
+      "criteria": [
+        "Median als robuster gegenüber Ausreißern benannt",
+        "mögliche Verschiebung des Mittelwerts durch Extremwerte erklärt",
+        "Vergleich mit dem Mittelwert hergestellt",
+        "Median als häufig passendere Wahl bei Ausreißern genannt"
+      ],
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 3, "lineEnd": 5, "quote": "Der Median ist gegenüber Ausreißern robuster als der Mittelwert. Der Mittelwert kann durch einzelne extreme Werte deutlich verschoben werden. Bei Daten mit Ausreißern ist der Median daher häufig das passendere Lagemaß."}
+      ],
+      "consensus": {
+        "status": "accepted",
+        "cycle": 1,
+        "passes": [
+          {"role": "evidence-verifier", "verdict": "accept", "findings": []},
+          {"role": "quality-reviewer", "verdict": "accept", "findings": []}
+        ],
+        "adjudication": {"verdict": "accept", "summary": "Supported and consistently scorable."}
+      }
+    },
+    {
+      "id": "statistik-sc-002",
+      "type": "single-choice",
+      "topicId": "statistik",
+      "difficulty": "medium",
+      "learningObjective": "Einfluss extremer Werte auf Lagemaße erkennen",
+      "stem": "Welche Aussage beschreibt den Einfluss einzelner extremer Werte?",
+      "options": [
+        {"id": "opt-1", "text": "Der Mittelwert kann deutlich verschoben werden."},
+        {"id": "opt-2", "text": "Der Median ist gegenüber Ausreißern robuster als der Mittelwert."},
+        {"id": "opt-3", "text": "Der Median ist bei Ausreißern häufig das passendere Lagemaß."},
+        {"id": "opt-4", "text": "Statistische Signifikanz allein belegt keine klinische Relevanz."}
+      ],
+      "correctOptionId": "opt-1",
+      "rationale": "Die Quelle beschreibt ausdrücklich, dass einzelne extreme Werte den Mittelwert deutlich verschieben können.",
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 4, "lineEnd": 4, "quote": "Der Mittelwert kann durch einzelne extreme Werte deutlich verschoben werden."}
+      ]
+    },
+    {
+      "id": "evidenz-sc-001",
+      "type": "single-choice",
+      "topicId": "evidenz",
+      "difficulty": "easy",
+      "learningObjective": "Bedeutung eines p-Werts wiedergeben",
+      "stem": "Welche Aussage beschreibt laut Quelle einen p-Wert?",
+      "options": [
+        {"id": "opt-1", "text": "Er beschreibt Daten unter Annahme der Nullhypothese."},
+        {"id": "opt-2", "text": "Er ist nicht die Wahrscheinlichkeit, dass die Nullhypothese wahr ist."},
+        {"id": "opt-3", "text": "Statistische Signifikanz allein belegt keine klinische Relevanz."},
+        {"id": "opt-4", "text": "Bei Daten mit Ausreißern ist der Median häufig das passendere Lagemaß."}
+      ],
+      "correctOptionId": "opt-1",
+      "rationale": "Die Quelle definiert den p-Wert als Beschreibung von Daten unter Annahme der Nullhypothese.",
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 9, "lineEnd": 9, "quote": "Ein p-Wert beschreibt Daten unter Annahme der Nullhypothese."}
+      ]
+    },
+    {
+      "id": "evidenz-sc-002",
+      "type": "single-choice",
+      "topicId": "evidenz",
+      "difficulty": "medium",
+      "learningObjective": "Statistische und klinische Relevanz unterscheiden",
+      "stem": "Welche Aussage zur statistischen Signifikanz steht in der Quelle?",
+      "options": [
+        {"id": "opt-1", "text": "Statistische Signifikanz allein belegt keine klinische Relevanz."},
+        {"id": "opt-2", "text": "Ein p-Wert beschreibt Daten unter Annahme der Nullhypothese."},
+        {"id": "opt-3", "text": "Der Mittelwert kann durch einzelne extreme Werte deutlich verschoben werden."},
+        {"id": "opt-4", "text": "Der Median ist gegenüber Ausreißern robuster als der Mittelwert."}
+      ],
+      "correctOptionId": "opt-1",
+      "rationale": "Die Quelle trennt statistische Signifikanz ausdrücklich von klinischer Relevanz.",
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 11, "lineEnd": 11, "quote": "Statistische Signifikanz allein belegt keine klinische Relevanz."}
+      ]
+    },
+    {
+      "id": "evidenz-open-001",
+      "type": "open",
+      "topicId": "evidenz",
+      "difficulty": "hard",
+      "learningObjective": "p-Wert und statistische Signifikanz quellengetreu einordnen",
+      "prompt": "Ordnen Sie den p-Wert und die Aussagekraft statistischer Signifikanz anhand der Quelle ein.",
+      "modelAnswer": "Ein p-Wert beschreibt Daten unter Annahme der Nullhypothese. Er ist nicht die Wahrscheinlichkeit, dass die Nullhypothese wahr ist. Statistische Signifikanz allein belegt keine klinische Relevanz.",
+      "criteria": [
+        "Annahme der Nullhypothese als Bezugsrahmen des p-Werts genannt",
+        "p-Wert nicht als Wahrscheinlichkeit einer wahren Nullhypothese gedeutet",
+        "statistische Signifikanz nicht mit klinischer Relevanz gleichgesetzt",
+        "p-Wert und Signifikanz als getrennte Aussagen eingeordnet"
+      ],
+      "evidence": [
+        {"sourceId": "src-54dd0b2e3e7aea30", "lineStart": 9, "lineEnd": 11, "quote": "Ein p-Wert beschreibt Daten unter Annahme der Nullhypothese. Er ist nicht die Wahrscheinlichkeit, dass die Nullhypothese wahr ist. Statistische Signifikanz allein belegt keine klinische Relevanz."}
+      ],
+      "consensus": {
+        "status": "accepted",
+        "cycle": 1,
+        "passes": [
+          {"role": "evidence-verifier", "verdict": "accept", "findings": []},
+          {"role": "quality-reviewer", "verdict": "accept", "findings": []}
+        ],
+        "adjudication": {"verdict": "accept", "summary": "Supported and consistently scorable."}
+      }
+    }
+  ]
+}
