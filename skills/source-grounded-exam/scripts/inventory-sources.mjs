@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { access, mkdir, readdir, readFile, stat, writeFile } from 'node:fs/promises';
-import { dirname, extname, isAbsolute, relative, resolve } from 'node:path';
+import { basename, dirname, extname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from './lib/cli.mjs';
 import { readJson, sha256, stableStringify, validateBlueprint } from './lib/contracts.mjs';
@@ -26,7 +26,7 @@ function unsupportedExtension(path) {
 async function collectFiles(sourcePath) {
   const sourceStat = await stat(sourcePath);
   if (sourceStat.isFile()) {
-    if (unsupportedExtension(sourcePath)) throw new Error(`Unsupported source extension: ${sourcePath}`);
+    if (!SUPPORTED_EXTENSIONS.has(extname(sourcePath).toLowerCase())) throw new Error(`Unsupported source extension: ${sourcePath}`);
     return [resolve(sourcePath)];
   }
   if (!sourceStat.isDirectory()) throw new Error(`Source path is not a file or directory: ${sourcePath}`);
@@ -44,19 +44,40 @@ async function collectFiles(sourcePath) {
 export async function createSourceManifest(blueprint, blueprintPath) {
   const blueprintFile = pathFromInput(blueprintPath);
   const blueprintDirectory = dirname(resolve(blueprintFile));
-  const filePaths = [];
+  const fileEntries = [];
 
   for (const source of blueprint.sourcePaths) {
     const sourcePath = resolve(blueprintDirectory, source);
-    if (unsupportedExtension(sourcePath)) throw new Error(`Unsupported source extension: ${sourcePath}`);
-    filePaths.push(...await collectFiles(sourcePath));
+    if (unsupportedExtension(sourcePath)) {
+      let sourceStat;
+      try {
+        sourceStat = await stat(sourcePath);
+      } catch (error) {
+        if (error.code === 'ENOENT') throw new Error(`Unsupported source extension: ${sourcePath}`);
+        throw error;
+      }
+      if (!sourceStat.isDirectory()) throw new Error(`Unsupported source extension: ${sourcePath}`);
+    }
+    const sourceStat = await stat(sourcePath);
+    const files = await collectFiles(sourcePath);
+    const absoluteSource = isAbsolute(source);
+    const canonicalPrefix = absoluteSource
+      ? (sourceStat.isDirectory() ? basename(sourcePath) : '')
+      : '';
+    for (const absolutePath of files) fileEntries.push({ absolutePath, absoluteSource, canonicalPrefix, sourceRoot: sourcePath });
   }
 
-  const absolutePaths = [...new Set(filePaths)].sort((a, b) => normalizePath(a).localeCompare(normalizePath(b)));
+  const absolutePaths = fileEntries
+    .sort((a, b) => normalizePath(a.absolutePath).localeCompare(normalizePath(b.absolutePath)));
+  const canonicalPaths = new Set();
   const sources = [];
-  for (const absolutePath of absolutePaths) {
+  for (const { absolutePath, absoluteSource, canonicalPrefix, sourceRoot } of absolutePaths) {
     const text = normalizeNewlines(await readFile(absolutePath, 'utf8'));
-    const relativePath = normalizePath(relative(blueprintDirectory, absolutePath));
+    const relativePath = normalizePath(canonicalPrefix
+      ? join(canonicalPrefix, relative(sourceRoot, absolutePath))
+      : (absoluteSource ? basename(absolutePath) : relative(blueprintDirectory, absolutePath)));
+    if (canonicalPaths.has(relativePath)) throw new Error(`Duplicate canonical source path: ${relativePath}`);
+    canonicalPaths.add(relativePath);
     sources.push({
       id: sourceId(relativePath),
       relativePath,
